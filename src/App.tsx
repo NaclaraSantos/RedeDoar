@@ -36,6 +36,7 @@ import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined'
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined'
 import Login from './components/login.jsx'
 import './App.css'
+import logo from './assets/logo02.png'
 
 type DonationType =
   | 'alimentos'
@@ -525,9 +526,7 @@ function App({ mode, onToggleTheme }: AppProps) {
   const drawerContent = (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: 'background.paper' }}>
       <Box sx={{ p: 3 }}>
-        <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700, letterSpacing: '0.08em' }}>
-          RedeDoar
-        </Typography>
+        <img src={logo} alt="RedeDoar" style={{ height: '50px' }} />
       </Box>
 
       <List sx={{ px: 2, pb: 2 }}>
@@ -1116,7 +1115,7 @@ function App({ mode, onToggleTheme }: AppProps) {
           width: { lg: `calc(100% - ${DRAWER_WIDTH}px)` },
           ml: { lg: `${DRAWER_WIDTH}px` },
           borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
-          bgcolor: mode === 'dark' ? 'rgba(22, 29, 36, 0.9)' : 'rgba(255,255,255,0.78)',
+          bgcolor: mode === 'dark' ? 'rgba(79, 72, 236, 0.18)' : 'rgba(79, 72, 236, 0.08)',
           color: 'text.primary',
           backdropFilter: 'blur(10px)',
         }}

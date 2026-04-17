@@ -31,14 +31,42 @@ function RootApp() {
         palette: {
           mode,
           primary: {
-            main: '#117a63',
+            main: '#FFBF18',
+            contrastText: '#100E34',
           },
           secondary: {
-            main: '#f28a1f',
+            main: '#4F48EC',
+            contrastText: '#FFFFFF',
           },
           background: {
-            default: mode === 'dark' ? '#0f1318' : '#f4efe7',
-            paper: mode === 'dark' ? '#161d24' : '#fffdf8',
+            default: '#100E34',
+            paper: '#15163C',
+          },
+          divider: 'rgba(255,255,255,0.12)',
+          text: {
+            primary: '#FFFFFF',
+            secondary: '#D9D9FF',
+          },
+        },
+        components: {
+          MuiButton: {
+            styleOverrides: {
+              containedPrimary: {
+                backgroundColor: '#FFBF18',
+                color: '#100E34',
+                boxShadow: 'none',
+                '&:hover': {
+                  backgroundColor: '#e6b114',
+                },
+              },
+            },
+          },
+          MuiChip: {
+            styleOverrides: {
+              root: {
+                borderColor: 'rgba(255, 255, 255, 0.16)',
+              },
+            },
           },
         },
         shape: {

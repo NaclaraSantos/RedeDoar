@@ -16,6 +16,7 @@ import {
   ToggleButtonGroup,
   Typography,
 } from '@mui/material'
+import logoSrc from '../assets/logo02.png'
 
 function EyeIcon(props) {
   return (
@@ -66,13 +67,13 @@ function Login({ onLogin, mode: themeMode, onToggleTheme }) {
   const fieldSx = useMemo(
     () => ({
       '& .MuiOutlinedInput-root': {
-        color: isDark ? '#f3fbff' : '#0d2a22',
-        bgcolor: isDark ? 'rgba(24, 44, 68, 0.82)' : 'rgba(255, 255, 255, 0.9)',
-        '& fieldset': { borderColor: isDark ? 'rgba(86, 185, 140, 0.6)' : 'rgba(26, 159, 116, 0.5)' },
-        '&:hover fieldset': { borderColor: isDark ? '#66e2ad' : '#179f74' },
-        '&.Mui-focused fieldset': { borderColor: isDark ? '#8af5c6' : '#16966d' },
+        color: isDark ? '#F8F8FF' : '#10103F',
+        bgcolor: isDark ? 'rgba(15, 14, 52, 0.84)' : 'rgba(255, 255, 255, 0.95)',
+        '& fieldset': { borderColor: isDark ? 'rgba(79, 72, 236, 0.5)' : 'rgba(79, 72, 236, 0.3)' },
+        '&:hover fieldset': { borderColor: 'rgba(79, 72, 236, 0.7)' },
+        '&.Mui-focused fieldset': { borderColor: '#4F48EC' },
       },
-      '& .MuiInputLabel-root': { color: isDark ? '#b9d2ea' : '#295745' },
+      '& .MuiInputLabel-root': { color: isDark ? '#C7C4FF' : '#4F48EC' },
     }),
     [isDark],
   )
@@ -152,9 +153,7 @@ function Login({ onLogin, mode: themeMode, onToggleTheme }) {
         display: 'grid',
         placeItems: 'center',
         px: 2,
-        background: isDark
-          ? 'radial-gradient(circle at 50% 0%, rgba(40, 117, 88, 0.35), transparent 38%), linear-gradient(135deg, #0b1020, #111832 55%, #0b1224)'
-          : 'radial-gradient(circle at 50% 0%, rgba(84, 180, 145, 0.34), transparent 38%), linear-gradient(135deg, #edf7f2, #dff1e8 55%, #f3fbf7)',
+        background: 'linear-gradient(180deg, #100E34 0%, #120F3A 100%)',
       }}
     >
       <Button
@@ -168,12 +167,11 @@ function Login({ onLogin, mode: themeMode, onToggleTheme }) {
           px: 1.8,
           py: 0.8,
           borderRadius: 999,
-          bgcolor: isDark ? 'rgba(35, 134, 95, 0.25)' : 'rgba(26, 159, 116, 0.14)',
-          border: isDark ? '1px solid rgba(88, 214, 158, 0.35)' : '1px solid rgba(26, 159, 116, 0.35)',
-          color: isDark ? '#e7fff5' : '#156145',
+          bgcolor: '#FFBF18',
+          color: '#100E34',
           fontSize: 12,
           fontWeight: 700,
-          '&:hover': { bgcolor: isDark ? 'rgba(35, 134, 95, 0.38)' : 'rgba(26, 159, 116, 0.22)' },
+          '&:hover': { bgcolor: '#e6b114' },
         }}
       >
         {isDark ? 'CLARO' : 'ESCURO'}
@@ -184,29 +182,27 @@ function Login({ onLogin, mode: themeMode, onToggleTheme }) {
           width: '100%',
           maxWidth: 560,
           borderRadius: 3.2,
-          border: isDark ? '1px solid rgba(88, 214, 158, 0.28)' : '1px solid rgba(26, 159, 116, 0.28)',
-          bgcolor: isDark ? 'rgba(19, 27, 51, 0.85)' : 'rgba(255, 255, 255, 0.9)',
-          boxShadow: isDark ? '0 18px 40px rgba(4, 9, 25, 0.48)' : '0 18px 40px rgba(17, 73, 51, 0.18)',
+          border: isDark ? '1px solid rgba(79, 72, 236, 0.35)' : '1px solid rgba(79, 72, 236, 0.28)',
+          bgcolor: isDark ? 'rgba(15, 14, 52, 0.92)' : 'rgba(255, 255, 255, 0.96)',
+          boxShadow: isDark ? '0 18px 40px rgba(15, 14, 52, 0.6)' : '0 18px 40px rgba(79,72,236,0.16)',
         }}
         elevation={0}
       >
         <CardContent sx={{ p: { xs: 3, sm: 5 } }}>
           <Stack spacing={2.2} component="form" onSubmit={handleSubmit}>
             <Box sx={{ textAlign: 'center' }}>
-              <Typography
-                variant="overline"
+              <Box
+                component="img"
+                src={logoSrc}
+                alt="Rede Doar Logo"
                 sx={{
-                  color: isDark ? '#7ff2c3' : '#0f7a58',
-                  fontWeight: 700,
-                  fontSize: '1.6rem',
-                  letterSpacing: '0.06em',
+                  width: { xs: 220, sm: 280 },
+                  maxWidth: '78%',
+                  mx: 'auto',
+                  my: 2,
                 }}
-              >
-                RedeDoar
-              </Typography>
-              <Typography variant="body2" sx={{ mt: 1, color: isDark ? '#cbe2f5' : '#2f5e44' }}>
-                Plataforma para conectar doadores, organizações e logística em desastres ambientais.
-              </Typography>
+              />
+              
             </Box>
 
             <ToggleButtonGroup
@@ -219,14 +215,14 @@ function Login({ onLogin, mode: themeMode, onToggleTheme }) {
               size="small"
               sx={{
                 '& .MuiToggleButton-root': {
-                  color: isDark ? '#cbe2f5' : '#1c4e3c',
-                  borderColor: isDark ? 'rgba(93, 191, 146, 0.36)' : 'rgba(26, 159, 116, 0.35)',
-                  bgcolor: isDark ? 'rgba(19, 39, 62, 0.62)' : 'rgba(255,255,255,0.86)',
+                  color: isDark ? '#D9D9FF' : '#4F48EC',
+                  borderColor: isDark ? 'rgba(79, 72, 236, 0.35)' : 'rgba(79, 72, 236, 0.28)',
+                  bgcolor: isDark ? 'rgba(15, 14, 52, 0.52)' : 'rgba(255,255,255,0.94)',
                   fontWeight: 600,
                 },
                 '& .Mui-selected': {
-                  color: '#e9fff6',
-                  bgcolor: 'rgba(31, 130, 93, 0.8) !important',
+                  color: '#FFFFFF',
+                  bgcolor: 'rgba(79, 72, 236, 0.9) !important',
                 },
               }}
             >
@@ -301,13 +297,13 @@ function Login({ onLogin, mode: themeMode, onToggleTheme }) {
               size="large"
               fullWidth
               sx={{
-                color: '#ffffff',
+                color: '#100E34',
                 mt: 0.6,
                 py: 1.2,
                 fontWeight: 700,
                 letterSpacing: '0.03em',
-                background: 'linear-gradient(90deg, #1a9f74, #27c58f)',
-                '&:hover': { background: 'linear-gradient(90deg, #158863, #21ab7d)' },
+                backgroundColor: '#FFBF18',
+                '&:hover': { backgroundColor: '#e6b114' },
               }}
             >
               {isRegister ? 'Cadastrar' : 'Entrar'}
@@ -321,7 +317,7 @@ function Login({ onLogin, mode: themeMode, onToggleTheme }) {
                   underline="always"
                   onClick={() => switchMode('login')}
                   sx={{
-                    color: isDark ? '#ffffff' : '#165c43',
+                    color: isDark ? '#ffffff' : '#4F48EC',
                     textUnderlineOffset: 3,
                     p: 0,
                     m: 0,
@@ -340,7 +336,7 @@ function Login({ onLogin, mode: themeMode, onToggleTheme }) {
                   underline="always"
                   onClick={handleForgotPassword}
                   sx={{
-                    color: isDark ? '#ffffff' : '#165c43',
+                    color: isDark ? '#ffffff' : '#4F48EC',
                     textUnderlineOffset: 3,
                     p: 0,
                     m: 0,
@@ -361,7 +357,7 @@ function Login({ onLogin, mode: themeMode, onToggleTheme }) {
                   underline="always"
                   onClick={() => switchMode('register')}
                   sx={{
-                    color: isDark ? '#ffffff' : '#165c43',
+                    color: isDark ? '#ffffff' : '#4F48EC',
                     textUnderlineOffset: 3,
                     p: 0,
                     m: 0,

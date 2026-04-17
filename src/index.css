@@ -18,4 +18,13 @@ body,
 
 body {
   margin: 0;
+  background: #100E34;
+  color: #FFFFFF;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
