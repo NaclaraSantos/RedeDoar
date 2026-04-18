@@ -432,7 +432,10 @@ function App({ mode, onToggleTheme }: AppProps) {
     : isInstitution
     ? INSTITUTION_NAV_ITEMS
     : NAV_ITEMS
-  const selectedScreen = currentNavItems.some((item) => item.id === activeScreen) ? activeScreen : currentNavItems[0].id
+  
+  // Garantir que instituição receptora nunca acesse tela de doações
+  const safeActiveScreen = isInstitution && activeScreen === 'doacoes' ? 'dashboard' : activeScreen
+  const selectedScreen = currentNavItems.some((item) => item.id === safeActiveScreen) ? safeActiveScreen : currentNavItems[0].id
 
   const matches = useMemo(() => buildMatches(offers, requests), [offers, requests])
   const totalOffered = useMemo(() => offers.reduce((acc, item) => acc + item.quantityKg, 0), [offers])
@@ -514,6 +517,10 @@ function App({ mode, onToggleTheme }: AppProps) {
   }
 
   function openScreen(screenId: ScreenId) {
+    // Impedir instituição receptora de acessar tela de doações
+    if (isInstitution && screenId === 'doacoes') {
+      return
+    }
     setActiveScreen(screenId)
     setMobileOpen(false)
   }
@@ -581,7 +588,7 @@ function App({ mode, onToggleTheme }: AppProps) {
       <Stack spacing={3}>
         <SectionHeader
           eyebrow="Visão Geral"
-          title={isVolunteer ? 'Painel do voluntário' : isDonor ? 'Painel da doadora' : isInstitution ? 'Painel da instituição' : 'Dashboard'}
+          title={isVolunteer ? 'Painel do voluntário' : isDonor ? 'Painel' : isInstitution ? 'Painel da instituição' : 'Dashboard'}
           description={
             isVolunteer
               ? 'Veja as ofertas disponíveis e as coletas que você pode assumir como voluntário.'
@@ -699,6 +706,10 @@ function App({ mode, onToggleTheme }: AppProps) {
   }
 
   function renderDonations() {
+    // Bloquear acesso de instituições receptoras
+    if (isInstitution) {
+      return null
+    }
     return (
       <Stack spacing={3}>
         <SectionHeader eyebrow="Ofertas" title="Cadastro de ofertas" description="Registre recursos disponíveis e coordene a coleta para apoiar comunidades afetadas." />
@@ -718,7 +729,7 @@ function App({ mode, onToggleTheme }: AppProps) {
                     </MenuItem>
                   ))}
                 </TextField>
-                <TextField label="Quantidade (kg)" type="number" inputProps={{ min: 1 }} value={offerForm.quantityKg} onChange={(event) => setOfferForm((prev) => ({ ...prev, quantityKg: Number(event.target.value) }))} fullWidth />
+                <TextField label="Quantidade" type="number" inputProps={{ min: 1 }} value={offerForm.quantityKg} onChange={(event) => setOfferForm((prev) => ({ ...prev, quantityKg: Number(event.target.value) }))} fullWidth />
                 <TextField label="Urgência (1 a 5)" type="number" inputProps={{ min: 1, max: 5 }} value={offerForm.urgency} onChange={(event) => setOfferForm((prev) => ({ ...prev, urgency: Number(event.target.value) }))} fullWidth />
                 <TextField label="Janela de coleta" value={offerForm.pickupWindow} onChange={(event) => setOfferForm((prev) => ({ ...prev, pickupWindow: event.target.value }))} fullWidth />
                 <Box sx={{ gridColumn: '1 / -1' }}>
@@ -888,7 +899,7 @@ function App({ mode, onToggleTheme }: AppProps) {
                   : isDonor
                   ? 'Suas ofertas cadastradas'
                   : isInstitution
-                  ? 'Solicitações em aberto'
+                  ? 'Solicitações registradas'
                   : 'Entregas disponíveis'}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
@@ -897,7 +908,7 @@ function App({ mode, onToggleTheme }: AppProps) {
                   : isDonor
                   ? 'Veja suas ofertas e as demandas sugeridas para cada uma.'
                   : isInstitution
-                  ? 'Veja suas solicitações e as ofertas sugeridas para atendimento.'
+                  ? 'Acompanhe suas solicitações de recursos e as ofertas sugeridas.'
                   : 'Acompanhe as operações disponíveis.'}
               </Typography>
               <Box className="delivery-grid" sx={{ mt: 3 }}>
@@ -1086,6 +1097,12 @@ function App({ mode, onToggleTheme }: AppProps) {
   }
 
   function renderContent() {
+    // Dupla proteção: instituição receptora nunca deve acessar ofertas
+    if (isInstitution && selectedScreen === 'doacoes') {
+      setActiveScreen('dashboard')
+      return renderDashboard()
+    }
+
     switch (selectedScreen) {
       case 'doacoes':
         return renderDonations()

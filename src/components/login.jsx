@@ -40,7 +40,16 @@ const ACCOUNT_STORAGE_KEY = 'rededoar_accounts'
 function getStoredAccounts() {
   try {
     const raw = localStorage.getItem(ACCOUNT_STORAGE_KEY)
-    if (!raw) return []
+    if (!raw) {
+      // Contas de teste pré-carregadas
+      const defaultAccounts = [
+        { name: 'Empresa Teste', email: 'empresa@test.com', password: '123456', userType: 'empresa' },
+        { name: 'Instituição Teste', email: 'instituicao@test.com', password: '123456', userType: 'instituicao' },
+        { name: 'Voluntário Teste', email: 'voluntario@test.com', password: '123456', userType: 'voluntario' },
+      ]
+      saveAccounts(defaultAccounts)
+      return defaultAccounts
+    }
     const parsed = JSON.parse(raw)
     return Array.isArray(parsed) ? parsed : []
   } catch {
@@ -240,18 +249,20 @@ function Login({ onLogin, mode: themeMode, onToggleTheme }) {
               />
             ) : null}
 
-            <TextField
-              select
-              label="Tipo de perfil"
-              value={userType}
-              onChange={(event) => setUserType(event.target.value)}
-              fullWidth
-              sx={fieldSx}
-            >
-              <MenuItem value="empresa">Empresa doadora</MenuItem>
-              <MenuItem value="instituicao">Instituicao recebedora</MenuItem>
-              <MenuItem value="voluntario">Entregador voluntário</MenuItem>
-            </TextField>
+            {isRegister ? (
+              <TextField
+                select
+                label="Tipo de perfil"
+                value={userType}
+                onChange={(event) => setUserType(event.target.value)}
+                fullWidth
+                sx={fieldSx}
+              >
+                <MenuItem value="empresa">Empresa doadora</MenuItem>
+                <MenuItem value="instituicao">Instituicao recebedora</MenuItem>
+                <MenuItem value="voluntario">Entregador voluntário</MenuItem>
+              </TextField>
+            ) : null}
 
             <TextField
               label="E-mail"
